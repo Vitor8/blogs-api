@@ -81,5 +81,4 @@ describe('6 - Sua aplicação deve ter o endpoint GET `/categories`', () => {
         expect(json.message).toBe('Expired or invalid token');
       });
   });
-
 });
