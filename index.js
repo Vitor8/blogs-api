@@ -14,6 +14,10 @@ const {
 } = require('./controllers/categorieController');
 
 const {
+  createBlogPostController,
+} = require('./controllers/blogPostController');
+
+const {
   isDisplayNameValid,
   isEmailValid,
   isPasswordValid,
@@ -25,6 +29,13 @@ const {
 const {
   isNameValid,
 } = require('./middlewares/categoriesValidations');
+
+const {
+  isTitleValid,
+  isContentValid,
+  isCategoryIdsValid,
+  isCategoryIdsAbsent,
+} = require('./middlewares/blogPostsValidations');
 
 const app = express();
 
@@ -48,6 +59,16 @@ app.get('/user/:id', isTokenValid, getUserByIdController);
 app.post('/categories', isNameValid, isTokenValid, createCategoriesController);
 
 app.get('/categories', isTokenValid, getAllCategoriesController);
+
+app.post(
+  '/post',
+  isTokenValid,
+  isTitleValid,
+  isContentValid,
+  isCategoryIdsAbsent,
+  isCategoryIdsValid,
+  createBlogPostController,
+);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
