@@ -6,6 +6,7 @@ const {
   loginUserController,
   getAllUsersController,
   getUserByIdController,
+  deleteUserController,
 } = require('./controllers/userController');
 
 const {
@@ -15,6 +16,11 @@ const {
 
 const {
   createBlogPostController,
+  getAllPosts,
+  getPostById,
+  updatePostController,
+  deletePostController,
+  getPostByTermController,
 } = require('./controllers/blogPostController');
 
 const {
@@ -35,6 +41,10 @@ const {
   isContentValid,
   isCategoryIdsValid,
   isCategoryIdsAbsent,
+  isUpdatedCategoryValid,
+  isUpdatedUserValid,
+  isUpdatedTitleAndContentValid,
+  isPostValid,
 } = require('./middlewares/blogPostsValidations');
 
 const app = express();
@@ -60,6 +70,19 @@ app.post('/categories', isNameValid, isTokenValid, createCategoriesController);
 
 app.get('/categories', isTokenValid, getAllCategoriesController);
 
+app.put(
+  '/post/:id',
+  isTokenValid,
+  isUpdatedCategoryValid,
+  isUpdatedUserValid,
+  isUpdatedTitleAndContentValid,
+  updatePostController,
+);
+
+app.delete('/post/:id', isTokenValid, isPostValid, isUpdatedUserValid, deletePostController);
+
+app.delete('/user/me', isTokenValid, deleteUserController);
+
 app.post(
   '/post',
   isTokenValid,
@@ -69,6 +92,12 @@ app.post(
   isCategoryIdsValid,
   createBlogPostController,
 );
+
+app.get('/post', isTokenValid, getAllPosts);
+
+app.get('/post/search', isTokenValid, getPostByTermController);
+
+app.get('/post/:id', isTokenValid, getPostById);
 
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {

@@ -49,9 +49,18 @@ const getUserByIdController = async (req, res) => {
   }
 };
 
+const deleteUserController = async (req, res) => {
+  const { email } = req.user;
+
+  await User.destroy({ where: { email } });
+
+  return res.status(204).json({ message: 'Delete successfully' });
+};
+
 module.exports = {
   createUserController,
   loginUserController,
   getAllUsersController,
   getUserByIdController,
+  deleteUserController,
 };
