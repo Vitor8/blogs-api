@@ -1,4 +1,4 @@
-# Boas vindas ao repositório do API de Blogs!
+# Boas vindas ao repositório da API de Blogs!
 
 Projeto feito na Trybe. Aplicação de uma API para um blog. Foram utilizados o NodeJS e Express para criação da API. É possível cadastrar usuários, cada usuário pode fazer vários posts, e cada post pode possuir diferentes categorias. Todas as operações de CRUD (Create, Read, Update and Delete) podem ser feitas, tanto para os usuários, quanto para os posts dos usuários. O banco de dados utilizado é o MySQL. Para manipular o bancos de dados utilizei o Sequelize. Todos os endpoints seguem o padrão REST.
 
