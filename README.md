@@ -1,68 +1,53 @@
-# Boas vindas ao repositório da API de Blogs!
+# Welcome to the Blogs API documentation!
 
-Projeto feito na Trybe. Aplicação de uma API para um blog. Foram utilizados o NodeJS e Express para criação da API. É possível cadastrar usuários, cada usuário pode fazer vários posts, e cada post pode possuir diferentes categorias. Todas as operações de CRUD (Create, Read, Update and Delete) podem ser feitas, tanto para os usuários, quanto para os posts dos usuários. O banco de dados utilizado é o MySQL. Para manipular o bancos de dados utilizei o Sequelize. Todos os endpoints seguem o padrão REST.
-
-Para o usuário fazer um post, é necessário usuário e login, portanto existe uma **relação entre** `user` e `post`. Também existe relação entre `posts` para `categorias` e de `categorias` para `posts`.
-
-# Habilidades 
-
-Nesse projeto, construi um back-end usando `ORM` com o pacote `sequelize` do `npm`, que é capaz de:
- - Criar e associar tabelas usando `models` do `sequelize`
- - Construir endpoints para consumir os models que criar 
- - Fazer um `CRUD` com o `ORM`
+REST API for a blog. NodeJs, Express and ORM Sequelize were used to create the API. It is possible to do the CRUD operations for users and posts from users. The database is MySQL.
 
 ---
 
-# Sumário
+# Endpoints summary
 
-A Trybe nos passou 13 requisitos a serem cumpridos.
-
-  - [Lista de Requisitos](#lista-de-requisitos)
-    - [1 - Sua aplicação deve ter o endpoint POST `/user`](#1---sua-aplicação-deve-ter-o-endpoint-post-user)
-    - [2 - Sua aplicação deve ter o endpoint POST `/login`](#2---sua-aplicação-deve-ter-o-endpoint-post-login)
-    - [3 - Sua aplicação deve ter o endpoint GET `/user`](#3---sua-aplicação-deve-ter-o-endpoint-get-user)
-    - [4 - Sua aplicação deve ter o endpoint GET `/user/:id`](#4---sua-aplicação-deve-ter-o-endpoint-get-userid)
-    - [5 - Sua aplicação deve ter o endpoint POST `/categories`](#5---sua-aplicação-deve-ter-o-endpoint-post-categories)
-    - [6 - Sua aplicação deve ter o endpoint GET `/categories`](#6---sua-aplicação-deve-ter-o-endpoint-get-categories)
-    - [7 - Sua aplicação deve ter o endpoint POST `/post`](#7---sua-aplicação-deve-ter-o-endpoint-post-post)
-    - [8 - Sua aplicação deve ter o endpoint GET `/post`](#8---sua-aplicação-deve-ter-o-endpoint-get-post)
-    - [9 - Sua aplicação deve ter o endpoint GET `post/:id`](#9---sua-aplicação-deve-ter-o-endpoint-get-postid)
-    - [10 - Sua aplicação deve ter o endpoint PUT `/post/:id`](#10---sua-aplicação-deve-ter-o-endpoint-put-postid)
-    - [11 - Sua aplicação deve ter o endpoint DELETE `post/:id`](#11---sua-aplicação-deve-ter-o-endpoint-delete-postid)
-    - [12 - Sua aplicação deve ter o endpoint DELETE `/user/me`](#12---sua-aplicação-deve-ter-o-endpoint-delete-userme)
-    - [13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTerm`](#13---sua-aplicação-deve-ter-o-endpoint-get-postsearchqsearchterm)
+    - [1 - POST `/user`]
+    - [2 - POST `/login`]
+    - [3 - GET `/user`]
+    - [4 - GET `/user/:id`]
+    - [5 - POST `/categories`]
+    - [6 - GET `/categories`]
+    - [7 - POST `/post`]
+    - [8 - GET `/post`]
+    - [9 - GET `post/:id`]
+    - [10 - PUT `/post/:id`]
+    - [11 - DELETE `post/:id`]
+    - [12 - DELETE `/user/me`]
+    - [13 - GET `post/search?q=:searchTerm`]
 
 ---
 
-# Instruções para executar o projeto na sua máquina:
+# Instructions to run the project on your machine:
 
-1. Clone o repositório
+1. Clone the repository
   * `git clone git@github.com:Vitor8/blogs-api.git`.
-  * Entre na pasta do repositório que você acabou de clonar:
+  * Enter in the folder
     * `cd blogs-api`
 
-2. Instale as dependências 
+2. Install dependencies 
   * `npm install`
 
-3. Para habilitar a API:
+3. Start the projetct
   * `npm start`
 
 ---
 
-### Execução de testes unitários
+### Unit tests execution
 
-Os teste foram feitos em Jest pela Trybe, para avaliar se cumprimos todos os requisitos necessários. Use o comando a seguir para executar todos os testes: 
 
 ```sh
 npm test
 ```
-
-Caso queria executar só um arquivo de test use o seguinte comando, considerado que quer testar o arquivo `tests/req07-createPost.test.js`:
-
+or
 ```sh
 npm test tests/req07-createPost.test.js
 ```
-ou
+or
 ```
 npm test req07
 ```
@@ -70,83 +55,32 @@ npm test req07
 
 ## Linter
 
-Para garantir a qualidade do código, usamos o [ESLint](https://eslint.org/) para fazer uma análise estática.
-
-Este projeto já vem com as dependências relacionadas ao _linter_ configuradas nos arquivos `package.json`.
-
-Para poder rodar os `ESLint` em um projeto basta executar o comando `npm install` dentro do projeto e depois `npm run lint`. 
+My code follows the basic pattern defined by Lint. To test run the command npm run lint
 
 ---
-
-Configurei as variáveis globais do MySQL no seguinte caminho: `config` -> `config.js`
-
-```
-module.exports = {
-  development: {
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'blogs_api',
-    host: process.env.HOSTNAME,
-    dialect: 'mysql',
-  },
-  test: {
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'blogs_api',
-    host: process.env.HOSTNAME,
-    dialect: 'mysql',
-  },
-  production: {
-    username: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: 'blogs_api',
-    host: process.env.HOSTNAME,
-    dialect: 'mysql',
-  },
-};
-```
-
-#### Variáveis:
-
-`host: process.env.HOSTNAME`
-
-`user: process.env.MYSQL_USER`
-
-`password: process.env.MYSQL_PASSWORD`
-
 
 #### Status HTTP
 
-Toas as "respostas" respeitam o status do protocolo HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status) com base no que o REST prega.
-
-Alguns exemplos:
-
-  - Requisições que precisam de token mas não o receberam retornam o código `status 401`;
-
-  - Requisições que não seguem o formato pedido pelo servidor retornam o código `status 400`;
-
-  - Um problema inesperado no servidor retorna o código de `status 500`;
-
-  - Um acesso ao criar um recurso, no nosso caso usuário ou post, retorna o código de `status 201`.
+All the answers follows the HTTP protocol and REST pattern.
 
 ---
 
-#### Coleções
+#### Collections
 
-As tabelas da aplicação possuem o seguinte formato:
+The application tables have the following format:
 
-- **Users**, contêm dados com a seguinte estrutura:
+- **Users**, contain data with the following structure:
 
   ```json
   {
     "id": 1,
     "displayName": "Brett Wiltshire",
-    "email": "brett@email.com", // tem quer ser único
+    "email": "brett@email.com", // unique
     "password": "123456",
     "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
   }
   ```
-- **Categories**, contêm dados com a seguinte estrutura:
+- **Categories**, contain data with the following structure:
 
   ```json
   {
@@ -155,7 +89,7 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- **PostsCategories**, contêm dados com a seguinte estrutura:
+- **PostsCategories**, contain data with the following structure:
 
   ```json
   {
@@ -164,7 +98,7 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- **BlogPosts**, contêm dados com a seguinte estrutura:
+- **BlogPosts**, contain data with the following structure:
 
   ```json
   {
@@ -177,17 +111,11 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-## Lista de Requisitos:
+## Endpoints 
 
-- Abaixo estão os requisitos requeridos pela Trybe nesse projeto:
+### 1 - POST `/user`
 
-### 1 - Sua aplicação deve ter o endpoint POST `/user`
-
-#### Os seguintes pontos serão avaliados:
-
-- O endpoint deve ser capaz de adicionar um novo user a sua tabela no banco de dados;
-
-- O corpo da requisição deverá ter o seguinte formato:
+- The request body has the following format. As fields are mandatory!
 
   ```json
   {
@@ -197,13 +125,14 @@ As tabelas da aplicação possuem o seguinte formato:
     "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
   }
   ```
-- O campo `displayName` deverá ser uma string com no mínimo de 8 caracteres;
+  
+- The `displayName` field must be a string with at least 8 characters.
 
-- O campo `email` será considerado válido se tiver o formato `<prefixo>@<domínio>` e se for único. Ele é obrigatório.
+- The `email` field will be considered valid if it has the format `<prefix>@<domain>` and is unique.
 
-- A senha deverá conter 6 caracteres. Ela é obrigatória.
+- The password must contain a string with 6 characters. 
 
-- Caso exista uma pessoa com o mesmo email na base, deve-se retornar o seguinte erro:
+- If there is a person with the same email in the base, the following error should be returned:
 
   ```json
   {
@@ -211,20 +140,17 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- Caso contrário, retornar a mesma resposta do endpoint de `/login`, um token `JWT`:
+- Otherwise, , the post was successful. The return will be a `JWT` token:
 
   ```json
   {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
   }
   ```
-  _O token anterior é fictício_
 
-### 2 - Sua aplicação deve ter o endpoint POST `/login`
+### 2 - POST `/login`
 
-#### Os seguintes pontos serão avaliados:
-
-- O corpo da requisição deverá seguir o formato abaixo:
+- The request body has the following format. As fields are mandatory!
 
   ```json
   {
@@ -233,22 +159,19 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- Caso algum desses campos seja inválido ou não exista um usuário correspondente no banco de dados, retorne um código de status 400 com o corpo `{ message: "Campos inválidos" }`.
+- If any of these fields is invalid or there is no corresponding user in the database, the return will have a status of 400 with the body `{ message: "Invalid fields" }`.
 
-- Caso esteja tudo certo com o login, a resposta deve ser um token `JWT`, no seguinte formato:
+- If everything is okay with the login, the answer is a json with a `JWT` token
 
   ```json
   {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjo1LCJkaXNwbGF5TmFtZSI6InVzdWFyaW8gZGUgdGVzdGUiLCJlbWFpbCI6InRlc3RlQGVtYWlsLmNvbSIsImltYWdlIjoibnVsbCJ9LCJpYXQiOjE2MjAyNDQxODcsImV4cCI6MTYyMDY3NjE4N30.Roc4byj6mYakYqd9LTCozU1hd9k_Vw5IWKGL4hcCVG8"
   }
   ```
-  _O token anterior é fictício_
 
-### 3 - Sua aplicação deve ter o endpoint GET `/user`
+### 3 - GET `/user`
 
-#### Os seguintes pontos serão avaliados:
-
-- Deve listar todos os **Users** e retorná-los na seguinte estrutura:
+- List all **Users** and return them in the following structure:
 
   ```json
   [
@@ -261,13 +184,11 @@ As tabelas da aplicação possuem o seguinte formato:
   ]
   ```
 
-- A requisição deve ter token de autenticação nos headers e, caso contrário, retorne um código de `status 401`.
+- The request must have an authentication token in the headers. Otherwise the return will be a `status 401` code.
 
-### 4 - Sua aplicação deve ter o endpoint GET `/user/:id`
+### 4 - GET `/user/:id`
 
-#### Os seguintes pontos serão avaliados:
-
-- Retorna os detalhes do usuário baseado no `id` da rota. Os dados devem ter o seguinte formato:
+- Returns user details based on the `id` of the route. The data must have the following format:
 
   ```json
   {
@@ -277,49 +198,43 @@ As tabelas da aplicação possuem o seguinte formato:
     "image": "http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png"
   }
   ```
+  
+- The request must have an authentication token in the headers. Otherwise the return will be a `status 401` code.
 
-- A requisição deve ter token de autenticação nos headers e, caso contrário, retorne um código de `status 401`.
+### 5 - POST `/categories`
 
-### 5 - Sua aplicação deve ter o endpoint POST `/categories`
-
-#### Os seguintes pontos serão avaliados:
-
-- Esse endpoint deve receber uma _Categoria_ no corpo da requisição e criá-la no banco. O corpo da requisição deve ter a seguinte estrutura:
+- This endpoint receives a _Category_ in the body of the request and creates it in the database. The request body must have the following structure:
 
  ```json
   {
-    "name": "Inovação"
+    "name": "Innovation"
   }
   ```
 
-- Caso a Categoria não contenha o `name` a API deve retornar um erro de `status 400`.
+- If the body does not contain the `name` key, the API return a `status 400` error.
 
-- A requisição deve ter o token de autenticação nos headers e, caso contrário, retorne um código de `status 401`.
+- The request must have an authentication token in the headers. Otherwise the return will be a `status 401` code.
 
-### 6 - Sua aplicação deve ter o endpoint GET `/categories`
+### GET `/categories`
 
-#### Os seguintes pontos serão avaliados:
-
-- Esse endpoint deve listar todas as Categorias e retorná-las na seguinte estrutura:
+- List all categories with the following format:
 
 ```json
 [
   {
     "id": 1,
-    "name": "Escola"
+    "name": "School"
   },
   {
     "id": 2,
-    "name": "Inovação"
+    "name": "Innovation"
   }
 ]
 ```
 
-### 7 - Sua aplicação deve ter o endpoint POST `/post`
+### 7 - POST `/post`
 
-#### Os seguintes pontos serão avaliados:
-
-- Esse endpoint deve receber um _BlogPost_ no corpo da requisição e criá-lo no banco. O corpo da requisição deve ter a seguinte estrutura:
+- This endpoint must receive a _BlogPost_ in the body of the request and create it in the database. The request body has the following structure. All fields are mandatory!
 
   ```json
   {
@@ -329,15 +244,11 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- Caso o post não contenha o `title`, `content` ou `categoryIds` a API deve retornar um erro de `status 400`.
+- The request must have an authentication token in the headers. Otherwise the return will be a `status 401` code.
 
-- A requisição deve ter o token de autenticação nos headers e, caso contrário, retorne um código de `status 401`.
+### 8 - GET `/post`
 
-### 8 - Sua aplicação deve ter o endpoint GET `/post`
-
-#### Os seguintes pontos serão avaliados:
-
-- Esse endpoint deve listar todos os _BlogPosts_ e retorná-los na seguinte estrutura:
+- List all _BlogPosts_ and return them with the following format:
 
 ```json
 [
@@ -364,11 +275,9 @@ As tabelas da aplicação possuem o seguinte formato:
 ]
 ```
 
-### 9 - Sua aplicação deve ter o endpoint GET `post/:id`
+### 9 - GET `post/:id`
 
-#### Os seguintes pontos serão avaliados:
-
-- Retorna um **BlogPost** com o `id` especificado. O retorno deve ter os seguinte formato:
+- Returns a **BlogPost** with the specified `id`. The return has the following format:
 
 ```json
   {
@@ -393,15 +302,11 @@ As tabelas da aplicação possuem o seguinte formato:
 }
 ```
 
-### 10 - Sua aplicação deve ter o endpoint PUT `/post/:id`
+### 10 - PUT `/post/:id`
 
-#### Os seguintes pontos serão avaliados:
+- The endpoint receives a **BlogPost** that will overwrite the original with the `id` specified in the URL. Should only be allowed to the user who created the **BlogPost**.
 
-- O endpoint deve receber um **BlogPost** que irá sobrescrever o original com o `id` especificado na URL. Só deve ser permitido para o usuário que criou o **BlogPost**.
-
-- A(s) categoria(s) do post **não** podem ser editadas, somente o `title` e `content`.
-
-- O corpo da requisição deve ter a seguinte estrutura:
+- The requisition body has the following format. All fields are mandatory
 
   ```json
   {
@@ -410,35 +315,17 @@ As tabelas da aplicação possuem o seguinte formato:
   }
   ```
 
-- Caso uma pessoa diferente de quem criou faça a requisição, deve retornar um código `status 401`.
+### 11 - DELETE `post/:id`
 
-- Caso uma requisição sem token seja recebida, deve-se retornar um código de `status 401`.
+- Delete a post with a specified `id.
 
-- Caso o post não contenha o `title` e/ou o `content` a API deve retornar um erro de `status 400`.
+### 12 - DELETE `/user/me`
 
-### 11 - Sua aplicação deve ter o endpoint DELETE `post/:id`
+- Delete a user specified in the `JWT` token .
 
-#### Os seguintes pontos serão avaliados:
+### 13 - GET `post/search?q=:searchTerm`
 
-- Deleta o post com o `id` especificado. Só deve ser permitido para o usuário que criou o **BlogPost**.
-
-- Caso uma pessoa diferente de quem criou faça a requisição, deve retornar um código `status 401`.
-
-- Caso uma requisição sem token seja recebida, deve-se retornar um código de `status 401`.
-
-- Caso o post referido não exista, deve-se retornar um código de `status 404`.
-
-### 12 - Sua aplicação deve ter o endpoint DELETE `/user/me`
-
-#### Os seguintes pontos serão avaliados:
-
-- Utilizando o token de autenticação nos headers, o usuário correspondente deve ser apagado.
-
-### 13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTerm`
-
-#### Os seguintes pontos serão avaliados:
-
-- Retorna uma array de **BlogPosts** que contenham em seu título, ou conteúdo, o termo pesquisado no `queryParam` da URL. O retorno deve ter o seguinte formato:
+- Retorn a **BlogPosts** that contain the searchTerm in its title or content. The answer has the following format:
 
 ```json
 [
@@ -464,5 +351,3 @@ As tabelas da aplicação possuem o seguinte formato:
   }
 ]
   ```
-
-- Caso nenhum **BlogPost** satisfaça a busca, retorne um array vazio.
